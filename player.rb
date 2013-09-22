@@ -1,4 +1,6 @@
 class Player
+  Z = 10
+
   def initialize(window)
     @window = window
     @image = Gosu::Image.new(window, "assets/pacman.gif", false)
@@ -40,10 +42,10 @@ class Player
 
   def draw
     case @facing
-    when :left then @backward_image.draw_rot(@x, @y, 1, 0)
-    when :right then @image.draw_rot(@x, @y, 1, 0)
-    when :up then @image.draw_rot(@x, @y, 1, 270)
-    when :down then @image.draw_rot(@x, @y, 1, 90)
+    when :left then @backward_image.draw_rot(@x, @y, Z, 0)
+    when :right then @image.draw_rot(@x, @y, Z, 0)
+    when :up then @image.draw_rot(@x, @y, Z, 270)
+    when :down then @image.draw_rot(@x, @y, Z, 90)
     end
   end
 

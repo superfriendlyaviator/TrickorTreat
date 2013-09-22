@@ -1,6 +1,7 @@
 require 'gosu'
 require 'hasu'
 Hasu.load 'player.rb'
+Hasu.load 'map.rb'
 
 class Game < Hasu::Window
   def initialize
@@ -9,7 +10,7 @@ class Game < Hasu::Window
 
   def reset
     self.caption = 'Hello World!'
-    @background_image = Gosu::Image.new(self, "assets/stars.jpg", true)
+    @map = Map.new(self)
     @player = Player.new(self)
     @player.warp(320, 240)
   end
@@ -30,7 +31,7 @@ class Game < Hasu::Window
   end
 
   def draw
-    @background_image.draw(0,0,0)
+    @map.draw
     @player.draw
   end
 
