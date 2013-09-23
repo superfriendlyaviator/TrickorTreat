@@ -7,13 +7,14 @@ Hasu.load 'map.rb'
 class Game < Hasu::Window
   def initialize
     super(640, 480, false)
+    reset
   end
 
   def reset
     self.caption = 'Hello World!'
     @map = Map.new(self)
     @player = Player.new(self, @map)
-    @player.warp(320, 240)
+    @player.warp(55, 415)
   end
 
   def update

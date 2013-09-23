@@ -1,7 +1,8 @@
 class Cell
   Z = 1
 
-  def initialize(image, height, width)
+  def initialize(type, image, height, width)
+    @type = type
     @image = image
     @height = height
     @width = width
@@ -14,11 +15,23 @@ class Cell
   end
 
   def wall?
-    !!@image
+    @type == :wall
+  end
+
+  def park?
+    @type == :park
+  end
+
+  def sewer?
+    @type == :sewer
   end
 
   def empty?
-    !@image
+    @type == :empty
+  end
+
+  def blocked?
+    wall? || park?
   end
 
   def bounds

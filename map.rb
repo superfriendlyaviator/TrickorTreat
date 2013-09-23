@@ -1,12 +1,13 @@
 Hasu.load "cell_factory.rb"
+Hasu.load "level_parser.rb"
 
 class Map
 
   def initialize(window)
     @window = window
-    @cell_factory = CellFactory.new(window)
-    @space_height = @cell_factory.height
-    @space_width = @cell_factory.width
+    @level_parser = LevelParser.new(window, 'level1.txt')
+    @space_height = 32
+    @space_width = 32
     @grid_height = (window.height.to_f / @space_height).to_i
     @grid_width = (window.width.to_f / @space_width).to_i
     @grid = build_grid
@@ -25,7 +26,7 @@ class Map
     player_bounds = player.bounds
     [:top, :bottom].each do |y|
       [:left, :right].each do |x|
-        if cell_from_pixels(player_bounds[x], player_bounds[y]).wall?
+        if cell_from_pixels(player_bounds[x], player_bounds[y]).blocked?
           return true
         end
       end
@@ -70,12 +71,13 @@ class Map
   end
 
   def build_grid
-    [edge_row] +
-    (@grid_height - 5).times.map { center_row } +
-    [odd_row] +
-    [center_row] +
-    [center_row] +
-    [edge_row]
+    @level_parser.parse
+    # [edge_row] +
+    # (@grid_height - 5).times.map { center_row } +
+    # [odd_row] +
+    # [center_row] +
+    # [center_row] +
+    # [edge_row]
   end
 
   def assign_cell_positions!
