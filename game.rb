@@ -1,5 +1,6 @@
 require 'gosu'
 require 'hasu'
+require 'pry'
 Hasu.load 'player.rb'
 Hasu.load 'map.rb'
 
@@ -11,7 +12,7 @@ class Game < Hasu::Window
   def reset
     self.caption = 'Hello World!'
     @map = Map.new(self)
-    @player = Player.new(self)
+    @player = Player.new(self, @map)
     @player.warp(320, 240)
   end
 
@@ -31,8 +32,20 @@ class Game < Hasu::Window
   end
 
   def draw
+    draw_background
     @map.draw
     @player.draw
+  end
+
+  TOP_COLOR = Gosu::Color.new(0xFF1EB1FA)
+  BOTTOM_COLOR = Gosu::Color.new(0xFF1D4DB5)
+  def draw_background
+    draw_quad(
+     0,     0,      TOP_COLOR,
+     width, 0,      TOP_COLOR,
+     0,     height, BOTTOM_COLOR,
+     width, height, BOTTOM_COLOR,
+     0)
   end
 
   def button_down(id)
